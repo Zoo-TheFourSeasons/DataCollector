@@ -12,7 +12,7 @@ if __name__ == '__main__':
     # 端口
     parser.add_argument('--port', help='端口. ',
                         type=int, default=9755)
-    # 服务类型类型
+    # 服务类型
     parser.add_argument('--type', help='服务类型. ',
                         type=str, default='node')
 
