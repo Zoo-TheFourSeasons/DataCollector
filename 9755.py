@@ -23,5 +23,6 @@ if __name__ == '__main__':
     socket_io, app = create_app(args.type)
     register_bp(app, service_type=args.type)
 
+    # signal only works in main thread
     # socket_io.run(app, host='0.0.0.0', port=args.port, use_reloader=False)
     app.run(host='0.0.0.0', port=args.port, use_reloader=False)
