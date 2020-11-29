@@ -1,0 +1,72 @@
+<div class="modal fade" id="master-add-modal" tabindex="-1" role="dialog" aria-labelledby="masterAddModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content add-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">添加主控</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="add-master-form" class="needs-validation" novalidate action="/master/add" method="POST">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="master">主控地址*</label>
+                            <input type="text" class="form-control f-data" value="http://127.0.0.1:9755" id="master" name="master" placeholder="主控地址"
+                                   required>
+                            <div class="invalid-tooltip tooltip-server">
+                                Server is require!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row"> f-data
+                        <div class="col-md-12 mb-3">
+                            <label for="cipher">密钥*</label>
+                            <input type="text" class="form-control f-data" value="WMGPFtNnGNjMYFnJGKHYjFbWsyxoTYrl" id="cipher" name="cipher" placeholder="密钥"
+                                   required>
+                            <div class="invalid-tooltip tooltip-server">
+                                Server is require!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="name">给当前节点命名*</label>
+                            <input type="text" class="form-control f-data" value="n1" id="name" name="name" placeholder="节点命名"
+                                   required>
+                            <div class="invalid-tooltip tooltip-server">
+                                Server is require!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-confirm-btn" class="btn btn-outline-info full" type="button">确认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    $("#add-master-btn").on('click', function () {
+        $("#master-add-modal").modal('show');
+    });
+
+
+    $("#add-confirm-btn").on('click', function () {
+        let data = MasterAdd.json();
+        data['node'] = window.location.protocol + window.location.host;
+        let params = {
+            'data': data,
+            'btn': $(this),
+            'success': refresh
+        };
+
+        MasterAdd.post(params);
+    });
+
+
+</script>

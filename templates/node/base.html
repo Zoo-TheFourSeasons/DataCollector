@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" type="image" href="/static/images/fish.png"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="64位服务器测试平台">
+    <meta name="author" content="fish">
+
+    <title>{% block title %}Invest Platform{% endblock %}</title>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/all.min.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+    {% block extend_css %}
+    {% endblock %}
+
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/popper.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap-table.js"></script>
+    <script src="/static/js/bootstrap-select.js"></script>
+    <script src="/static/js/axios.min.js"></script>
+    <script src="/static/js/all.js"></script>
+    <script src="/static/js/jquery-confirm.js"></script>
+    <script src="/static/js/jquery-ui.js"></script>
+    <script src="/static/js/bootstrap-table-sticky-header.min.js"></script>
+
+
+    {% block extend_js %}
+        <script src="/static/business/models.js"></script>
+        <script src="/static/business/base.js"></script>
+    {% endblock %}
+
+</head>
+<body>
+{% block head %}
+    <nav class="navbar sticky-top bg-dark flex-md-nowrap p-0" style="height: 52px">
+        <a class="navbar-brand color-white" href="/s/home.html"> 分布式爬虫平台</a>
+        <div id="search" class="full">
+        </div>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a href="/sign_out" id="logout-btn" class="nav-link btn color-white">退出</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
+<div class="container-fluid">
+    <div id="sidebar">
+        {% block sidebar %}
+            {% include 'sidebar.html' %}
+        {% endblock %}
+    </div>
+
+    <div id="main">
+        {% block main %}
+        {% endblock %}
+    </div>
+</div>
+<button id="message-confirm" class="btn btn-default" hidden></button>
+</body>
+
+</html>

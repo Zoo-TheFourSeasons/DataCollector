@@ -1,0 +1,50 @@
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="userAddModal" tabindex="-1" role="dialog" aria-labelledby="userAddModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content add-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">添加用户</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="add-user-form" class="needs-validation" novalidate action="/add/application" method="POST">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="name">应用名称*</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="应用名称"
+                                   value="" required>
+                            <div class="invalid-tooltip tooltip-name">
+                                Name is require!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="server">应用地址*</label>
+                            <input type="text" class="form-control" id="server" name="server" placeholder="应用地址"
+                                   required>
+                            <div class="invalid-tooltip tooltip-server">
+                                Server is require!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="description">应用描述</label>
+                            <textarea type="text" class="form-control" id="description" name="description"
+                                      placeholder="应用描述"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="add-confirm-btn" class="btn btn-outline-info full" type="button">确认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

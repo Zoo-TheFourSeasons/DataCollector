@@ -1,0 +1,326 @@
+<main role="main" id="stocks-main">
+    <div class="main-div stick-panel-head d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                {#                <button type="button" id="transfer-stocks-btn"#}
+                {#                        class="btn btn-sm btn-outline-secondary">Transfer#}
+                {#                </button>#}
+                {#                <button type="button" id="hist-stocks-btn"#}
+                {#                        class="btn btn-sm btn-outline-secondary">Hist#}
+                {#                </button>#}
+                {#                <button type="button" name="edit-stocks-btn"#}
+                {#                        class="btn btn-sm btn-outline-secondary">Edit#}
+                {#                </button>#}
+                {#                <button type="button" id="delete-stocks-btn"#}
+                {#                        class="btn btn-sm btn-outline-danger">Delete#}
+                {#                </button>#}
+                <button type="button" id="update-stocks-btn"
+                        class="btn btn-sm btn-outline-secondary">更新
+                </button>
+                <button type="button" id="preselect-stocks-btn"
+                        class="btn btn-sm btn-outline-primary">预选
+                </button>
+                <button type="button" id="quantify-stocks-btn"
+                        class="btn btn-sm btn-outline-primary">计算
+                </button>
+
+                <button type="button" id="query-stocks-btn"
+                        class="btn btn-sm btn-outline-info">查询
+                </button>
+            </div>
+            {#            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">#}
+            {#                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"#}
+            {#                     stroke="currentColor" stroke-width="2" stroke-linecap="round"#}
+            {#                     stroke-linejoin="round"#}
+            {#                     class="feather feather-calendar">#}
+            {#                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>#}
+            {#                    <line x1="16" y1="2" x2="16" y2="6"></line>#}
+            {#                    <line x1="8" y1="2" x2="8" y2="6"></line>#}
+            {#                    <line x1="3" y1="10" x2="21" y2="10"></line>#}
+            {#                </svg>#}
+            {#                This week#}
+            {#            </button>#}
+        </div>
+        <h1 class="h2">股票</h1>
+    </div>
+    <div class="table-responsive">
+        <table id="stocks-table"
+               class="table table-striped table-hover table-bordered table-condensed table-no-bordered"
+               data-toggle="table"
+               data-locale="zh-CN"
+               data-sticky-header="true"
+               data-show-jumpto="true"
+               data-icon-size="sm"
+               data-page-size="20"
+{#               data-url="/stocks/index"#}
+               data-side-pagination="server"
+{#               data-click-to-select="true"#}
+               data-pagination="true"
+               data-falign="center"
+               data-id-field="id"
+               data-search="true"
+               data-pagination-h-align="left"
+               data-pagination-detail-h-align="right"
+               data-unique-id="ID"
+               data-detail-view="true"
+               data-detail-formatter="detailFormatter"
+               data-page-list="[20, 50, 500]">
+            <thead>
+            <tr>
+                <th data-align="center" data-field="state" data-width="52px"
+                    data-checkbox="true"></th>
+                <th data-align="right" data-width="62px" data-formatter="iFormatter" data-field="i">序号</th>
+                <th data-align="center" data-field="id" data-visible="false">ID</th>
+                <th data-align="center" data-field="名称" data-sortable="true">XX名称</th>
+                <th data-align="center" data-field="细分行业" data-formatter="industryFormatter" data-sortable="true">细分行业</th>
+                <th data-align="center" data-field="市盈率" data-sortable="true">pe/市盈率</th>
+                <th data-align="center" data-field="市净率" data-sortable="true">pb/市净率</th>
+                <th data-align="center" data-field="毛利率" data-sortable="true">gpr/毛利率</th>
+                <th data-align="center" data-field="净利润率" data-sortable="true">npr/净利润率</th>
+                <th data-align="center" data-field="每股收益" data-sortable="true">esp/每股收益</th>
+                <th data-align="center" data-field="每股净资" data-sortable="true">bvps/每股净资</th>
+
+                <th data-align="center" data-field="performance历史加权净利润" data-sortable="true">Performance净利润</th>
+                <th data-align="center" data-field="performance历史加权净利润同比" data-sortable="true">净利润同比</th>
+                <th data-align="center" data-field="performance历史加权净资产收益率" data-sortable="true">净资产收益率</th>
+                <th data-align="center" data-field="performance历史加权每股净资产" data-sortable="true">每股净资产</th>
+                <th data-align="center" data-field="performance历史加权每股收益" data-sortable="true">每股收益</th>
+                <th data-align="center" data-field="performance历史加权每股收益同比" data-sortable="true">每股收益同比</th>
+                <th data-align="center" data-field="performance历史加权每股现金流量" data-sortable="true">每股现金流量</th>
+
+                <th data-align="center" data-field="profit历史加权净利润" data-sortable="true">Profit净利润</th>
+                <th data-align="center" data-field="profit历史加权净利率" data-sortable="true">净利率</th>
+                <th data-align="center" data-field="profit历史加权净资产收益率" data-sortable="true">净资产收益率</th>
+                <th data-align="center" data-field="profit历史加权每股主营业务收入" data-sortable="true">每股主营业务收入</th>
+                <th data-align="center" data-field="profit历史加权每股收益" data-sortable="true">每股收益</th>
+                <th data-align="center" data-field="profit历史加权毛利率" data-sortable="true">毛利率</th>
+                <th data-align="center" data-field="profit历史加权营业收入(百万)" data-sortable="true">营业收入(百万)</th>
+
+                <th data-align="center" data-field="operation历史加权存货周转天数" data-sortable="true">Operation存货周转天数</th>
+                <th data-align="center" data-field="operation历史加权存货周转率" data-sortable="true">存货周转率</th>
+                <th data-align="center" data-field="operation历史加权应收账款周转天数" data-sortable="true">应收账款周转天数</th>
+                <th data-align="center" data-field="operation历史加权存应收账款周转率" data-sortable="true">应收账款周转率</th>
+                <th data-align="center" data-field="operation历史加权流动资产周转天数" data-sortable="true">流动资产周转天数</th>
+                <th data-align="center" data-field="operation历史加权流动资产周转率" data-sortable="true">流动资产周转率</th>
+
+                <th data-align="center" data-field="growth历史加权主营业务收入增长率" data-sortable="true">Growth主营业务收入增长率</th>
+                <th data-align="center" data-field="growth历史加权净利润增长率" data-sortable="true">净利润增长率</th>
+                <th data-align="center" data-field="growth历史加权净资产增长率" data-sortable="true">净资产增长率</th>
+                <th data-align="center" data-field="growth历史加权总资产增长率" data-sortable="true">总资产增长率</th>
+                <th data-align="center" data-field="growth历史加权每股收益增长率" data-sortable="true">每股收益增长率</th>
+                <th data-align="center" data-field="growth历史加权股东权益增长率" data-sortable="true">股东权益增长率</th>
+
+                <th data-align="center" data-field="debt_paying历史加权利息支付倍数" data-sortable="true">DeptPaying利息支付倍数</th>
+                <th data-align="center" data-field="debt_paying历史加权流动比率" data-sortable="true">流动比率</th>
+                <th data-align="center" data-field="debt_paying历史加权现金比率" data-sortable="true">现金比率</th>
+                <th data-align="center" data-field="debt_paying历史加权股东权益增长率" data-sortable="true">股东权益增长率</th>
+                <th data-align="center" data-field="debt_paying历史加权股东权益比率" data-sortable="true">股东权益比率</th>
+                <th data-align="center" data-field="debt_paying历史加权速动比率" data-sortable="true">速动比率</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</main>
+<script>
+
+    let $table = $('#stocks-table');
+    let $body = $("body");
+
+
+    function refresh() {
+        $table.bootstrapTable('refresh');
+    }
+
+    function industryFormatter(value, row) {
+        return '<a target="_blank" href="/s/invest/stocks.html?search=' + value + '">' + value + '</a>';
+    }
+
+
+    function detailFormatter(index, row) {
+        return '<pre>' + JSON.stringify(row, null, 2); + '</pre>';
+    }
+
+
+    function iFormatter(value, row) {
+        let pageSize = $table.bootstrapTable('getOptions').pageSize;
+        let pageNumber = $table.bootstrapTable('getOptions').pageNumber;
+        let icon;
+        if (row.preselect) {
+            icon = ' <i id="' + row.名称 + '" class="fas fa-heart pop-preselect-icon"></i>'
+        } else {
+            icon = ' <i id="' + row.名称 + '" class="far fa-heart add-preselect-icon"></i>'
+        }
+        return pageSize * (pageNumber - 1) + value + icon;
+    }
+
+
+    $(document).ready(function () {
+
+        let search = $.url().param('search');
+        let url = '/stocks/index';
+        if (search !== undefined) {
+            url = url + '?search=' + search;
+        }
+        $table.bootstrapTable('refreshOptions', {
+            url: url,
+            fixedColumns: true,
+            fixedNumber: +4,
+        });
+        {# 移动搜索栏#}
+        search_move($table);
+
+        {# 调整表高#}
+        $(window).resize(function () {
+            adjust_height($table);
+        });
+
+    });
+
+
+    $("#update-stocks-btn").confirm({
+        closeIcon: true,
+        theme: 'supervan',
+        title: "Update stocks",
+        content: "Are you sure update all stocks?",
+        buttons: {
+            deleteKey: {
+                text: 'update',
+                action: function () {
+                    let params = {
+                        'btn': $(this),
+                        'data': {},
+                        'success': refresh
+                    };
+                    UpdateStock.get(params);
+                }
+            },
+            cancel: {text: '取消'}
+        }
+    });
+
+
+    $("#preselect-stocks-btn").confirm({
+        closeIcon: true,
+        theme: 'supervan',
+        title: "Preselect stocks",
+
+        onOpenBefore: function () {
+            let self = this;
+            let table_data = get_selected($table, false);
+            if (!table_data.ids) {
+                self.setContent('<h6>Pelease select stock!</h6>');
+                this.buttons.preselectKey.hide();
+            }
+            else {
+                let con = 'Are you sure preselect all stocks?';
+                self.setContent(con);
+            }
+        },
+        buttons: {
+            preselectKey: {
+                text: 'preselect',
+                action: function () {
+                    let table_data = get_selected($table, false);
+                    let params = {
+                        'btn': $(this),
+                        'data': {'name': table_data.ids},
+                        'success': refresh
+                    };
+                    AddPreselect.get(params);
+                }
+            },
+            cancel: {text: '取消'}
+        }
+    });
+
+    $body.on('click', '.pop-preselect-icon', function (){
+        let params = {
+            'data': {'name': this.id},
+            'success': refresh,
+        };
+        PopPreselect.get(params);
+    });
+
+    $body.on('click', '.add-preselect-icon', function (){
+        let params = {
+            'data': {'name': this.id},
+            'success': refresh,
+        };
+        AddPreselect.get(params);
+    });
+
+
+    $("#quantify-stocks-btn").confirm({
+        closeIcon: true,
+        theme: 'supervan',
+        title: "Quantify stocks",
+        content: "Are you sure quantify all stocks?",
+        buttons: {
+            quantifyKey: {
+                text: 'quantify',
+                action: function () {
+                    let params = {
+                        'data': {},
+                        'success': refresh,
+                        'btn': $(this)
+                    };
+                    QuantifyStocks.get(params);
+                }
+            },
+            cancel: {text: '取消'}
+        }
+    });
+
+
+
+    {#$("#transfer-stocks-btn").confirm({#}
+    {#    closeIcon: true,#}
+    {#    theme: 'supervan',#}
+    {#    title: "transfer stocks",#}
+    {#    content: "Are you sure transfer all stocks?",#}
+    {#    buttons: {#}
+    {#        transferKey: {#}
+    {#            text: 'transfer',#}
+    {#            action: function () {#}
+    {#                axios.request({url: '/transfer', method: 'get', params: request.data})#}
+    {#                    .then(function (response) {#}
+    {#                        if (response.data.status) {#}
+    {#                            alert('Ok')#}
+    {#                        }#}
+    {#                        console.log(response.data);#}
+    {#                    })#}
+    {#                    .catch(function (error) {#}
+    {#                        console.log(error);#}
+    {#                        catch_error(error);#}
+    {#                    });#}
+    {#            }#}
+    {#        },#}
+    {#        cancel: {text: '取消'}#}
+    {#    }#}
+    {# });#}
+
+    {##}
+    {#$("#hist-stocks-btn").confirm({#}
+    {#    closeIcon: true,#}
+    {#    theme: 'supervan',#}
+    {#    title: "hist stocks",#}
+    {#    content: "Are you sure hist stocks selected?",#}
+    {#    buttons: {#}
+    {#        deleteKey: {#}
+    {#            text: 'hist',#}
+    {#            action: function () {#}
+    {#                let form_id = 'stocks-delete-form';#}
+    {#                let action = '/stocks/hist';#}
+    {#                let callback_ = function (data, params) {#}
+    {#                    $('#stocks-table').bootstrapTable('refresh');#}
+    {#                };#}
+    {#                post_ivs_in_form('stocks-table', form_id, action, callback_);#}
+    {#            }#}
+    {#        },#}
+    {#        cancel: {text: '取消'}#}
+    {#    }#}
+    {# });#}
+</script>

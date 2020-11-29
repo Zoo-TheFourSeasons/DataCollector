@@ -1,0 +1,46 @@
+<div class="modal fade" id="node-edit-modal" tabindex="-1" role="dialog" aria-labelledby="nodeAddModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content edit-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">添加节点</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="edit-node-form" class="needs-validation" novalidate action="/node/edit" method="POST">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-3">
+                            <label for="node">地址:端口</label>
+                            <textarea type="text" class="form-control" id="node" name="node" rows="12"
+                                      placeholder="以;连接多个代理地址, 例如: 8.8.8.8:80; 4.4.4.4:8080"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="edit-confirm-btn" class="btn btn-outline-info full" type="button">确认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+
+    $("#edit-node-btn").on('click', function () {
+        $("#node-edit-modal").modal('show');
+    });
+
+
+    $("#edit-confirm-btn").on('click', function () {
+        let params = {
+            'btn': $(this),
+            'success': refresh
+        };
+
+        EditNode.post(params);
+    });
+
+
+</script>

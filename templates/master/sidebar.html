@@ -1,0 +1,44 @@
+<nav class="col-md-2 d-none d-md-block bg-dark sidebar">
+    <div class="sidebar-sticky">
+        <ul class="nav flex-column" style="font-size: 0.85rem;">
+
+            <li class="nav-item">
+                <a class="nav-link {% if link == 'node' %}active{% endif %}" href="/s/node/index.html">
+                    <i class="fas fa-network-wired fa-fw"></i>
+                    节点
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if link == 'proxy' %}active{% endif %}" href="/s/proxy/index.html">
+                    <i class="fas fa-robot fa-fw"></i>
+                    代理
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if link == 'task' %}active{% endif %}" href="/s/task/index.html">
+                    <i class="fas fa-tasks fa-fw"></i>
+                    任务
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if link == 'activity' %}active{% endif %}" href="/s/activity/index.html">
+                    <i class="fas fa-running fa-fw"></i>
+                    活动
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if link == 'cipher' %}active{% endif %}" href="/s/cipher/index.html">
+                    <i class="fas fa-key fa-fw"></i>
+                    密钥
+                </a>
+            </li>
+{#            <li class="nav-item">#}
+{#                <a class="nav-link {% if link == 'config' %}active{% endif %}" href="/s/config/index.html">#}
+{#                    <i class="fas fa-edit fa-fw"></i>#}
+{#                    配置#}
+{#                </a>#}
+{#            </li>#}
+        </ul>
+
+    </div>
+</nav>

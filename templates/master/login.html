@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>WL</title>
+    <link rel="shortcut icon" type="image" href="/static/images/fish.png"/>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/jquery-confirm.css" rel="stylesheet">
+    <link href="/static/css/floating-labels.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="col-md-4"></div>
+<div class="col-md-4" id="login-model">
+    <form class="form-login">
+        <div class="text-center mb-4">
+            <h1 class="h2 mb-4 font-weight-normal"><strong>分布式爬虫平台</strong></h1>
+        </div>
+        <div class="form-label-group">
+            <input type="text" id="account" name="account" value="xxx" class="form-control"
+                   placeholder="User name" required autofocus>
+            <label for="account">用户</label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="password" id="password" name="password" value="xxx" class="form-control"
+                   placeholder="Password" required>
+            <label for="password">密码</label>
+        </div>
+
+        <div class="btn-group full">
+            <button class="btn btn-lg btn-primary btn-block" id="login-btn" type="button">登录
+            </button>
+            <a href="/s/register.html" class="btn btn-sm btn-outline-secondary">注册</a>
+        </div>
+    </form>
+</div>
+<div class="col-md-4"></div>
+<button id="message-confirm" class="btn btn-default" hidden></button>
+</body>
+<script src="/static/js/jquery-3.3.1.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/axios.min.js"></script>
+<script src="/static/js/jquery-confirm.js"></script>
+<script src="/static/js/waveline.js"></script>
+<script src="/static/business/base.js"></script>
+<script src="/static/business/models.js"></script>
+<script>
+    $(document).ready(function () {
+        function login_success() {
+            window.location.href = '/s/home.html';
+        }
+
+        $("#login-btn").on('click', function () {
+            let params = {
+                'btn': $(this),
+                'success': login_success
+            };
+            Login.post(params);
+        });
+
+    });
+</script>
+</html>

@@ -1,0 +1,110 @@
+
+
+
+<div class="modal fade" id="stocksQueryModal" tabindex="-1" role="dialog" aria-labelledby="stocks-query-modalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-me modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title color-white">Query stocks</h5>
+                <button type="button" class="close color-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="query-stocks-form" novalidate method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id"/>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+                    <div class="btn-group mr-2">
+                        <button type="button" name="市盈率"
+                                class="btn btn-sm btn-outline-info field-button">市盈率
+                        </button>
+                        <button type="button" name="市净率"
+                                class="btn btn-sm btn-outline-info field-button">市净率
+                        </button>
+                        <button type="button" name="毛利率"
+                                class="btn btn-sm btn-outline-info field-button">毛利率
+                        </button>
+                        <button type="button" name="净利润率"
+                                class="btn btn-sm btn-outline-info field-button">净利润率
+                        </button>
+                        <button type="button" name="每股收益"
+                                class="btn btn-sm btn-outline-info field-button">每股收益
+                        </button>
+                        <button type="button" name="每股净资"
+                                class="btn btn-sm btn-outline-info field-button">每股净资
+                        </button>
+                        <button type="button"
+                                class="btn btn-sm btn-outline-info clean-button">清空
+                        </button>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane active" id="stock">
+                                <textarea name="query" style="height: 290px;"
+                                          placeholder="请填写查询条件: 市盈率 >=5 and 每股收益 >2"
+                                          class="form-control f-data"></textarea>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button id="query-stocks-confirm-btn" type="button" class="btn btn-outline-info full">查询</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // 查询
+        $("#query-stocks-btn").on('click', function () {
+            QueryStocks.show();
+        });
+
+        // 确定添加
+        $("#query-stocks-confirm-btn").on('click', function () {
+            let d = QueryStocks.json();
+
+            {#QueryStocks.post(params);#}
+            let url = '/stocks/index';
+            if (search !== undefined) {
+                url = url + '?query=' + d['query'];
+            }
+            $table.bootstrapTable('refreshOptions', {
+                url: url,
+                fixedColumns: true,
+                fixedNumber: +4,
+            });
+            {# 移动搜索栏#}
+            search_move($table);
+
+            {# 调整表高#}
+            $(window).resize(function () {
+                adjust_height($table);
+            });
+            QueryStocks.hide();
+
+        });
+
+        $(".field-button").on('click', function () {
+            let d = QueryStocks.json();
+            if (d['query'] === '') {
+                QueryStocks.fresh({
+                    'query': this.name
+                })
+            } else{
+                QueryStocks.fresh({
+                    'query': d['query'] + ' and ' + this.name
+                })
+            }
+        });
+
+        $(".clean-button").on('click', function () {
+            QueryStocks.fresh({
+                'query': ''
+            })
+        })
+
+    })
+</script>

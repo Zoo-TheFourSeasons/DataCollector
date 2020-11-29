@@ -1,0 +1,102 @@
+<main role="main" id="user-main">
+    <div class="main-div d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button type="button" id="update-cipher-btn" class="btn btn-sm btn-outline-secondary">
+                    更新
+                </button>
+            </div>
+
+        </div>
+        <h1 class="h2">密钥</h1>
+    </div>
+
+    <div class="table-responsive">
+        <table id="cipher-table"
+               class="table table-striped table-hover table-bordered table-condensed table-no-bordered"
+               data-toggle="table"
+               data-locale="zh-CN"
+               data-sticky-header="true"
+               data-show-jumpto="true"
+               data-icon-size="sm"
+               data-page-size="20"
+               data-url="/cipher/index"
+               data-side-pagination="server"
+               data-click-to-select="true"
+               data-pagination="true"
+               data-falign="center"
+               data-id-field="id"
+               data-search="true"
+               data-pagination-h-align="left"
+               data-pagination-detail-h-align="right"
+               data-unique-id="id"
+               data-detail-view="true"
+               data-detail-formatter="detailFormatter"
+               data-page-list="[20, 50, 500]">
+            <thead>
+            <tr>
+                <th data-align="center" data-field="id" data-visible="false">ID</th>
+                <th data-align="center" data-field="cipher" data-sortable="true">密钥
+                </th>
+                <th data-align="center" data-field="effective_time" data-sortable="true">有效时间
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+<script>
+    let $table = $('#cipher-table');
+
+
+    function refresh() {
+        $table.bootstrapTable('refresh');
+    }
+
+    function detailFormatter(index, row) {
+        return '下载节点:<br>' + window.location.protocol + window.location.host  + '/download/'+ row.cipher +
+            '<br>安装节点:<br>'+ 'python3 install.py' +
+            '<br>注册节点:<br>'+ window.location.protocol + window.location.host + '/node/register/' + row.cipher;
+    }
+
+
+    $(document).ready(function () {
+
+        {# 移动搜索栏#}
+        search_move($table);
+
+        {# 调整表高#}
+        $(window).resize(function () {
+            adjust_height($table);
+        });
+    });
+
+
+    $("#update-cipher-btn").confirm({
+        closeIcon: true,
+        theme: 'supervan',
+        title: "更新密钥",
+        content: "确定更新当前密钥?",
+        buttons: {
+            deleteKey: {
+                text: '确定',
+                action: function () {
+                    let params = {
+                        'data': {},
+                        'btn': $(this),
+                        'success': refresh
+                    };
+
+                    UpdateCipher.get(params);
+
+                }
+            },
+            cancel: {text: '取消'}
+        }
+     });
+
+</script>

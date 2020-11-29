@@ -1,0 +1,130 @@
+<div class="modal fade" id="task-run-modal" tabindex="-1" role="dialog" aria-labelledby="taskAddModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content Srun-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">运行任务</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="run-task-form" class="needs-validation" novalidate action="/task/run" method="POST">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <input type="text" class="f-data" hidden="hidden" id="task" name="task">
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">节点</span>
+                            </div>
+                            <select style="height: 36px"
+                                    name="node"
+                                    data-style="btn-info"
+                                    data-title="请选择节点. "
+                                    data-live-search="true"
+                                    data-actions-box="true"
+                                    id="node-select-run"
+                                    class="selectpicker form-control f-data">
+                            </select>
+                            <div class="invalid-tooltip tooltip-name">
+                                Name is require!
+                            </div>
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">代理</span>
+                            </div>
+                            <select style="height: 36px"
+                                    name="proxy"
+                                    data-style="btn-info"
+                                    data-title="请选择代理. "
+                                    data-live-search="true"
+                                    data-actions-box="true"
+                                    id="proxy-select-run"
+                                    class="selectpicker form-control f-data" multiple>
+                            </select>
+                            <div class="invalid-tooltip tooltip-name">
+                                Name is require!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="run-confirm-btn" class="btn btn-outline-info full" type="button">确认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+    function render_node(rsp, p) {
+        let rows = rsp.data.rows;
+        console.log(rows);
+
+        if (rows.length === 0) {
+            confirm_tip('警告', '请先添加节点. ');
+            return
+        }
+
+        let $select = $("#node-select-run");
+        $select.empty();
+        for (let i = 0; i < rows.length; i++) {
+            if (i === 0) {
+                $select.append('<option selected value="' + rows[i].node + '">' + rows[i].status + ' ' + rows[i].name + '</option>')
+            } else {
+                $select.append('<option value="' + rows[i].node + '">' + rows[i].status + ' ' + rows[i].name + '</option>')
+            }
+        }
+        $select.selectpicker('refresh');
+    }
+
+    function render_proxy(rsp, p) {
+        let rows = rsp.data.rows;
+        console.log(rows);
+
+        if (rows.length === 0) {
+            return
+        }
+
+        let $select = $("#proxy-select-run");
+        $select.empty();
+        for (let i = 0; i < rows.length; i++) {
+            $select.append('<option value="' + rows[i].proxy + '">' + rows[i].status + ' ' + rows[i].proxy + '</option>')
+        }
+        $select.selectpicker('refresh');
+    }
+
+
+
+    $("#task-table tbody").on('click', '.run-task-btn', function () {
+        let params1 = {
+            'url': '/node/index?search=&sort=status&order=desc',
+            'success': render_node,
+        };
+        get(params1);
+
+        let params2 = {
+            'url': '/proxy/index?search=&sort=status&order=desc',
+            'success': render_proxy,
+        };
+        get(params2);
+        TaskRun.fresh({
+            'task': this.name
+        });
+        TaskRun.show();
+    });
+
+
+    $("#run-confirm-btn").on('click', function () {
+
+        let params = {
+            'btn': $(this),
+            'success': refresh
+        };
+
+        TaskRun.post(params);
+    });
+
+
+</script>

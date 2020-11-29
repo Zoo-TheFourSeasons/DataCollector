@@ -1,0 +1,143 @@
+<main role="main" id="group-main">
+    <div class="main-div d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button type="button" id="add-group-btn"
+                        class="btn btn-sm btn-outline-secondary">添加
+                </button>
+                <button type="button" id="edit-group-btn"
+                        class="btn btn-sm btn-outline-secondary">编辑
+                </button>
+                <button type="button" id="delete-group-btn" class="btn btn-sm btn-outline-danger">
+                    删除
+                </button>
+            </div>
+        </div>
+        <h1 class="h2">Group</h1>
+    </div>
+    <div class="table-responsive">
+        <table id="group-table"
+               class="table table-striped table-hover table-bordered table-condensed table-no-bordered"
+               data-toggle="table"
+               data-locale="zh-CN"
+               data-sticky-header="true"
+               data-show-jumpto="true"
+               data-icon-size="sm"
+               data-page-size="20"
+               data-url="/group/index"
+               data-side-pagination="server"
+               data-click-to-select="true"
+               data-pagination="true"
+               data-falign="center"
+               data-id-field="group_name"
+               data-search="true"
+               data-pagination-h-align="left"
+               data-pagination-detail-h-align="right"
+               data-unique-id="id"
+               data-detail-view="true"
+               data-detail-formatter="detailFormatter"
+               data-page-list="[20, 50, 500]">
+            <thead>
+            <tr>
+                <th data-align="center" data-field="state" data-width="52px"
+                    data-checkbox="true"></th>
+                <th data-align="right" data-width="52px" data-formatter="iFormatter"
+                    data-field="i">序号
+                </th>
+                <th data-align="center" data-field="group_name" data-visible="false">group_name</th>
+                <th data-align="center" data-field="permissions" data-sortable="true">permissions</th>
+                <th data-align="center" data-field="members" data-sortable="true">members</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="add-group-modal">
+        {% include 'users/group/add.html' %}
+    </div>
+
+    <div id="edit-group-modal">
+        {% include 'users/group/edit.html' %}
+    </div>
+</main>
+
+<script>
+
+    let $table = $('#group-table');
+
+
+    function refresh() {
+        $table.bootstrapTable('refresh');
+    }
+
+
+    function iFormatter(value, row) {
+        let pageSize = $table.bootstrapTable('getOptions').pageSize;
+        let pageNumber = $table.bootstrapTable('getOptions').pageNumber;
+        return pageSize * (pageNumber - 1) + value;
+    }
+
+
+    function statusFormatter(value, row) {
+        if (value === 1) {
+            return "冻结";
+        } else {
+            return "激活";
+        }
+    }
+
+
+    $(document).ready(function () {
+        {#$table.bootstrapTable('refreshOptions', {#}
+        {#    url: '/industry/index'#}
+        {# });#}
+
+        {# 移动搜索栏#}
+        search_move($table);
+
+        {# 调整表高#}
+        $(window).resize(function () {
+            adjust_height($table);
+        });
+    });
+
+
+    $("#add-user-btn").on('click', function () {
+        $("#userAddModal").modal('show');
+    });
+
+
+    $("#edit-user-btn").on('click', function () {
+        $("#userEditModal").modal('show');
+    });
+
+
+    $('.selectpicker').selectpicker();
+
+
+    $("#delete-group-btn").confirm({
+        closeIcon: true,
+        theme: 'supervan',
+        title: "删除用户组",
+        content: "确定删除已选用户组?",
+        buttons: {
+            deleteKey: {
+                text: '删除',
+                action: function () {
+                    let form_id = 'group-delete-form';
+                    let action = '/group/delete';
+                    let callback_ = function (data, params) {
+                        $('#group-table').bootstrapTable('refresh');
+                    };
+
+                    post_ivs_in_form('group-table', form_id, action, callback_);
+                }
+            },
+            cancel: {text: '取消'}
+        }
+    });
+
+</script>

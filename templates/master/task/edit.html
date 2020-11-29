@@ -1,0 +1,66 @@
+<div class="modal fade" id="task-edit-modal" tabindex="-1" role="dialog" aria-labelledby="taskEditModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content edit-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">编辑任务</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="edit-task-form" class="needs-validation" novalidate action="/task/edit" method="POST">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <input type="text" class="f-data" hidden="hidden" id="name" name="name">
+                        <div class="col-md-12 mb-3">
+                            <label for="name">任务名称*</label>
+                            <input type="text" class="form-control f-data" id="name_new" name="name_new" placeholder="任务名称"
+                                   required>
+                            <div class="invalid-tooltip tooltip-server">
+                                Server is require!
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-3">
+                            <textarea type="text" class="form-control f-data" rows="24" id="code" name="code"
+                                      placeholder="任务代码"
+                                      required></textarea>
+                            <div class="invalid-tooltip tooltip-server">
+                                Server is require!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="edit-confirm-btn" class="btn btn-outline-info full" type="button">确认</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+
+    $("#task-table tbody").on('click', '.edit-task-btn', function () {
+            let row = $table.bootstrapTable('getRowByUniqueId', this.name);
+            console.log(row);
+            TaskEdit.fresh(row);
+            TaskEdit.fresh({
+                'code': row.code,
+                'name':  row.name,
+                'name_new': row.name
+            });
+            TaskEdit.show();
+        });
+
+
+    $("#edit-confirm-btn").on('click', function () {
+
+        let params = {
+            'btn': $(this),
+            'success': refresh
+        };
+
+        TaskEdit.post(params);
+    });
+
+
+</script>

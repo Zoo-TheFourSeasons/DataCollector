@@ -1,0 +1,7 @@
+flask
+wtforms
+flask_wtf
+flask_socketio
+flask_login
+sqlalchemy
+requests

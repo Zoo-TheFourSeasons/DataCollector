@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ code }}{% endblock %}
+
+{% block extend_css %}
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block main %}
+    {{ '<br>'.join(traces.split('\n')) }}
+{% endblock %}
+
+{% block extend_js %}
+{% endblock %}

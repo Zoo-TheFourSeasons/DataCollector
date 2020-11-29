@@ -1,0 +1,181 @@
+
+
+
+<div class="modal fade" id="configurationAddModal" tabindex="-1" role="dialog" aria-labelledby="interface-add-modalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-me modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title color-white">Add configuration</h5>
+                <button type="button" class="close color-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="add-configuration-form" novalidate method="POST">
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="id"/>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <div class="form-row">
+                        <div class="col-md-12 input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">name*</span>
+                            </div>
+                            <input type="text" class="form-control f-data" name="name" placeholder=""
+                                   value="" required>
+                            <div class="invalid-tooltip tooltip-name">
+                                Name is require!
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a href="#performance" aria-controls="performance" class="nav-link btn-outline-dark active pl-4 pr-4"
+                               role="tab" data-toggle="tab">performance</a></li>
+                        <li class="nav-item">
+                            <a href="#profit" aria-controls="profit" class="nav-link btn-outline-dark pl-4 pr-4"
+                               role="tab" data-toggle="tab">profit</a></li>
+                        <li class="nav-item">
+                            <a href="#operation" aria-controls="operation" class="nav-link btn-outline-dark pl-4 pr-4"
+                               role="tab" data-toggle="tab">operation</a></li>
+                        <li class="nav-item">
+                            <a href="#growth" aria-controls="growth" class="nav-link btn-outline-dark pl-4 pr-4"
+                               role="tab" data-toggle="tab">growth</a></li>
+                        <li class="nav-item">
+                            <a href="#debt_paying" aria-controls="debt_paying" class="nav-link btn-outline-dark pl-4 pr-4"
+                               role="tab" data-toggle="tab">debt paying</a></li>
+                        <li class="nav-item">
+                            <a href="#stock" aria-controls="stock" class="nav-link btn-outline-dark pl-4 pr-4"
+                               role="tab" data-toggle="tab">stock</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="performance">
+                                <textarea name="performance" style="height: 290px;"
+                                          placeholder="必填"
+                                          class="form-control f-data">
+{
+    "净利润": 23633.18,
+    "净利润同比": -9.12,
+    "净资产收益率": 10.6,
+    "每股净资产": null,
+    "每股收益": 0.8,
+    "每股收益同比": -17.53,
+    "每股现金流量": null,
+    "项季度由近及远权重": "normal",
+    "项权重": 1
+}</textarea>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profit">
+                                <textarea name="profit" style="height: 290px;"
+                                          placeholder="必填"
+                                          class="form-control f-data">
+{
+    "净利润": -2.7019,
+    "净利率": -0.58,
+    "净资产收益率": -0.09,
+    "每股主营业务收入": 0.2474,
+    "每股收益": -0.0014,
+    "毛利率": 8.0963,
+    "营业收入(百万)": 464.8492,
+    "项季度由近及远权重": "normal",
+    "项权重": 1
+}</textarea>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="operation">
+                                <textarea name="operation" style="height: 290px;"
+                                          placeholder="必填"
+                                          class="form-control f-data">
+{
+    "存货周转天数": 78.5238,
+    "存货周转率": 2.2923,
+    "应收账款周转天数": 71.4172,
+    "应收账款周转率": 2.5204,
+    "流动资产周转天数": 447.8726,
+    "流动资产周转率": 0.4019,
+    "项季度由近及远权重": "normal",
+    "项权重": 1
+}</textarea>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="growth">
+                                <textarea name="growth" style="height: 290px;"
+                                          placeholder="必填"
+                                          class="form-control f-data">
+{
+    "主营业务收入增长率": 15.786,
+    "净利润增长率": null,
+    "净资产增长率": -5.9186,
+    "总资产增长率": -2.5172,
+    "每股收益增长率": -85.62,
+    "股东权益增长率": -5.8389,
+    "项季度由近及远权重": 1,
+    "项权重": 1
+}</textarea>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="debt_paying">
+                                <textarea name="debt_paying" style="height: 290px;"
+                                          placeholder="必填"
+                                          class="form-control f-data">
+{
+    "利息支付倍数": "88.3776",
+    "流动比率": "1.1584",
+    "现金比率": "47.8814",
+    "股东权益增长率": 30.8579,
+    "股东权益比率": 69.1421,
+    "速动比率": "0.9759",
+    "项季度由近及远权重": "normal",
+    "项权重": 1
+}</textarea>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="stock">
+                                <textarea name="stock" style="height: 290px"
+                                          class="form-control f-data">
+{
+  "公积金": 20.29,
+  "净利润率": -118.93,
+  "利润同比": -31.25,
+  "固定资产": 44.88,
+  "市净率": -3.24,
+  "市盈率": 0,
+  "总股本(万)": 42.62,
+  "总资产(万)": 75.98,
+  "收入同比": -61.99,
+  "未分配利润": -56,
+  "每股公积金": 0.48,
+  "每股净资": -0.41,
+  "每股收益": -0.16,
+  "每股未分配": -1.31,
+  "毛利率": -5.19,
+  "流动资产": 22.44,
+  "流通股本(万)": 42.62,
+  "股东人数": 33847,
+  "项权重": 1
+}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <button id="add-confirm-btn" type="button" class="btn btn-outline-info full">确定</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // 添加
+        $("#add-configuration-btn").on('click', function () {
+            AddConfiguration.show();
+        });
+
+        // 确定添加
+        $("#add-confirm-btn").on('click', function () {
+            let params = {
+                'btn': $(this),
+                'success': refresh
+            };
+            AddConfiguration.post(params);
+        });
+    })
+</script>

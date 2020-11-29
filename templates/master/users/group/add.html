@@ -1,0 +1,103 @@
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="groupAddModal" tabindex="-1" role="dialog"
+     aria-labelledby="groupAddModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content add-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">添加用户组</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="add-group-form" class="needs-validation" novalidate
+                  action="/add/application" method="POST">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-md-12 mb-2">
+                            <label for="group_name">用户组名称*</label>
+                            <input type="text" class="form-control f-data" id="group_name"
+                                   name="group_name"
+                                   placeholder="用户组名称"
+                                   value="" required>
+                            <div class="invalid-tooltip tooltip-group_name">
+                                group name is require!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-8 mb-2">
+                            <label for="members">用户成员*</label>
+                            <select id="members"
+                                    name="members"
+                                    data-live-search="true"
+                                    class="selectpicker form-control f-data"
+                                    multiple>
+                            </select>
+                            <div class="invalid-tooltip tooltip-members">
+                                members is require!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-12 mb-2">
+                            <label for="permissions">组权限</label>
+                            <input type="text" class="form-control f-data" id="permissions"
+                                   name="permissions"
+                                   placeholder="组权限"
+                                   required>
+                            <div class="invalid-tooltip tooltip-组权限">
+                                permissions is require!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="group-add-confirm" class="btn btn-outline-info full"
+                            type="button">确认
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $("#add-group-btn").on('click', function () {
+        {#axios.request({url: '/user/index', method: 'get'})#}
+        {#    .then(function (response) {#}
+        {#        let members = $('#members');#}
+        {#        let users = [];#}
+        {##}
+        {#        for (let i = 0; i < response.data.rows.length; i++) {#}
+        {#            users.push(response.data.rows[i].key)#}
+        {#        }#}
+        {#        console.log(users);#}
+        {#        let option = render_select_from_data(users);#}
+        {#        console.log(option);#}
+        {#        members.html("");#}
+        {#        members.append(option);#}
+        {#        members.selectpicker('refresh');#}
+        {#    })#}
+        {#    .catch(function (error) {#}
+        {#        console.log(error);#}
+        {#    });#}
+
+        AddGroup.show();
+
+    });
+
+    $("#group-add-confirm").on('click', function () {
+        let params = {
+            'btn': $(this),
+            'success': refresh
+        };
+
+        AddGroup.post(params);
+    });
+
+</script>

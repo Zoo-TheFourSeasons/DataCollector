@@ -1,0 +1,170 @@
+<main role="main" id="operation-main">
+    <div class="main-div d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 border-bottom">
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button type="button" id="update-operation-btn"
+                        class="btn btn-sm btn-outline-secondary">更新
+                </button>
+            </div>
+        </div>
+        <h1 class="h2">运营能力</h1>
+    </div>
+    <div class="table-responsive">
+        <table id="operation-table"
+               class="table table-striped table-hover table-bordered table-condensed table-no-bordered"
+               data-toggle="table"
+               data-locale="zh-CN"
+               data-sticky-header="true"
+               data-show-jumpto="true"
+               data-icon-size="sm"
+               data-page-size="20"
+               data-url="/operation/index"
+               data-side-pagination="server"
+               data-click-to-select="true"
+               data-pagination="true"
+               data-falign="center"
+               data-id-field="id"
+               data-search="true"
+               data-pagination-h-align="left"
+               data-pagination-detail-h-align="right"
+               data-unique-id="id"
+               data-detail-view="true"
+               data-detail-formatter="detailFormatter"
+               data-page-list="[20, 50, 500]">
+            <thead>
+            <tr>
+                <th data-align="center" data-field="state" data-width="52px"
+                    data-checkbox="true"></th>
+                <th data-align="right" data-width="52px" data-formatter="iFormatter"
+                    data-field="i">序号
+                </th>
+                <th data-align="center" data-field="id" data-visible="false">ID</th>
+                <th data-align="center" data-field="名称" data-formatter="nameFormatter"
+                    data-sortable="true">名称
+                </th>
+                <th data-align="center" data-field="代码" data-sortable="true">代码</th>
+                {#                <th data-formatter="operateFormatter" data-field="ope" data-align="center">#}
+                {#                    operate#}
+                {#                </th>#}
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="temp-container">
+    </div>
+</main>
+<script>
+    let $table = $('#operation-table');
+
+
+    function refresh() {
+        $table.bootstrapTable('refresh');
+    }
+
+
+    function detailFormatter(index, row) {
+        return '<pre>' + JSON.stringify(row.operation, null, 2); + '</pre>';
+        {#let container = $("#temp-container");#}
+        {#let v_id = "container" + row.id;#}
+        {#let k_type = 'hist_5m';#}
+        {##}
+        {#container.append('<div id="' + v_id + '"></div><div id="slider' + k_type + '"></div>');#}
+        {#let v_container = $("#" + v_id);#}
+        {#v_container.empty();#}
+        {##}
+        {#function success(response, p) {#}
+        {#    let container = p.container;#}
+        {#    let k_type = p.k_type;#}
+        {#    // console.log(response.data);#}
+        {#    let data = response.data[k_type];#}
+        {##}
+        {#    k_(data, container);#}
+        {# }#}
+        {##}
+        {#let params = {#}
+        {#    'url': '/i/' + row.id,#}
+        {#    'data': {},#}
+        {#    'success': success,#}
+        {#    'header': {'Content-Type': 'application/json'},#}
+        {#    'success_params': {#}
+        {#        'container': v_id,#}
+        {#        'k_type': k_type#}
+        {#    }#}
+        {# };#}
+        {#get(params);#}
+        {##}
+        {#let detail = '<div></div>';#}
+        {#let tmp = $(detail);#}
+        {##}
+        {#tmp.append(v_container);#}
+        {##}
+        {#return tmp#}
+    }
+
+
+    function iFormatter(value, row) {
+        let pageSize = $table.bootstrapTable('getOptions').pageSize;
+        let pageNumber = $table.bootstrapTable('getOptions').pageNumber;
+        return pageSize * (pageNumber - 1) + value;
+    }
+
+
+    function nameFormatter(value, row) {
+        return '<a target="_blank" href="/s/stocks/stocks.html?name=' + value + '"> ' + value + '</a>';
+    }
+
+
+    $(document).ready(function () {
+        {#$table.bootstrapTable('refreshOptions', {#}
+        {#    url: '/industry/index'#}
+        {# });#}
+
+        {# 移动搜索栏#}
+        search_move($table);
+
+        {# 调整表高#}
+        $(window).resize(function () {
+            adjust_height($table);
+        });
+    });
+
+
+    {#operation_main.on('click', '.update-btn', function () {#}
+    {#    let callback_ = function (data, params) {#}
+    {#        $('#operation-table').bootstrapTable('refresh');#}
+    {#    };#}
+    {#    let params = {#}
+    {#        'url': '/operation/update',#}
+    {#        'data': {'operation': this.id},#}
+    {#        'success': callback_,#}
+    {#        'btn': $(this)#}
+    {#    };#}
+    {#    get(params);#}
+    {# });#}
+
+
+    $("#update-operation-btn").confirm({
+        closeIcon: true,
+        theme: 'supervan',
+        title: "Update operation",
+        content: "Are you sure update all operation?",
+        buttons: {
+            updateKey: {
+                text: 'update',
+                action: function () {
+                    let params = {
+                        'data': {},
+                        'success': refresh,
+                        'btn': $(this)
+                    };
+                    UpdateOperation.get(params);
+                }
+            },
+            cancel: {text: '取消'}
+        }
+    });
+
+</script>

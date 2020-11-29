@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}密钥{% endblock %}
+
+{% block extend_css %}
+    <link href="/static/css/bootstrap-table.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-select.css" rel="stylesheet">
+    <link href="/static/css/jquery-confirm.css" rel="stylesheet">
+    <link href="/static/css/bootstrap-table-sticky-header.css" rel="stylesheet">
+{% endblock %}
+
+{% set link = 'cipher' %}
+
+{% block extend_js %}
+    <script src="/static/js/g2.min.js"></script>
+    <script src="/static/js/data-set.min.js"></script>
+    <script src="/static/business/base.js"></script>
+    <script src="/static/business/models.js"></script>
+{% endblock %}
+
+{% block main %}
+    {% include 'cipher/main.html' %}
+{% endblock %}
